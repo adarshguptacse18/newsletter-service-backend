@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 
 const subscriptionService = require('./services/subscriptionService');
+const postService = require('./services/postService');
+const userService = require('./services/userService');
 
 const app = express();
 
@@ -16,8 +18,26 @@ app.post('/subscribe', async (req, res, next) => {
     } catch (err) {
         next(err);;
     }
-    
- 
+});
+
+app.post('/schedulePost', async (req, res, next) => {
+    try {
+        const { content, topic_id, scheduled_at } = req.body;
+        const post = await postService.create({ content, topic_id, scheduled_at });
+        res.status(200).send(post);
+    } catch (err) {
+        next(err);;
+    }
+});
+
+app.post('/createUser', async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        const user = await userService.create({ email });
+        res.status(200).send(user);
+    } catch (err) {
+        next(err);;
+    }
 });
 
 app.use((err, req, res, next) => {
