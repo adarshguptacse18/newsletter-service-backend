@@ -3,7 +3,10 @@ const pool = require('./config');
 
 // export query
 module.exports = {
-    query: (text, params) => {
+    update: (text, params) => {
         return pool.query(`${text} RETURNING *`, params)
+    },
+    query: (text, params) => {
+        return pool.query(`${text}`, params)
     }
 };

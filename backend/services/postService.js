@@ -10,6 +10,10 @@ class PostService {
         // TODO: handle if this queue publishing failed but post was created
         return post;
     }
+
+    async findById(id) {
+        return await new Post({id}).get();
+    }
 }
 
 module.exports = new PostService();

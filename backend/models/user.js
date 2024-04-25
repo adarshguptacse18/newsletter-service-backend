@@ -9,7 +9,7 @@ class User {
         try {
             const statement = 'INSERT INTO users(email) VALUES($1)';
             const values = [this.email];
-            const result = await db.query(statement, values);
+            const result = await db.update(statement, values);
             if (result.rows.length > 0) {
                 return result.rows[0];
             }

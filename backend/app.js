@@ -20,10 +20,20 @@ app.post('/subscribe', async (req, res, next) => {
     }
 });
 
-app.post('/schedulePost', async (req, res, next) => {
+app.post('/post/schedule', async (req, res, next) => {
     try {
         const { content, topic_id, scheduled_at } = req.body;
         const post = await postService.create({ content, topic_id, scheduled_at });
+        res.status(200).send(post);
+    } catch (err) {
+        next(err);;
+    }
+});
+
+app.get('/post/get/:id', async (req, res, next) => {
+    try {
+        const {id} = req.params;
+        const post = await postService.findById(id);
         res.status(200).send(post);
     } catch (err) {
         next(err);;

@@ -8,13 +8,28 @@ class Post {
         this.scheduled_at = new Date(scheduled_at);
     }
 
+    
     async create() {
         try {
             const statement = 'INSERT INTO post(topic_id, content, scheduled_at) VALUES($1, $2, $3)';
             const values = [this.topic_id, this.content, this.scheduled_at];
             // TODO make this transactional with queue
-            const result = await db.query(statement, values);
+            const result = await db.update(statement, values);
             // TODO: add this in the queue
+            if (result.rows.length > 0) {
+                return result.rows[0];
+            }
+            return null;
+        } catch(err) {
+            throw new Error(err);
+        }
+    }
+
+    async get() {
+        try {
+            const statement = 'SELECT * FROM post WHERE id = $1';
+            const values = [this.id];
+            const result = await db.query(statement, values);
             if (result.rows.length > 0) {
                 return result.rows[0];
             }
