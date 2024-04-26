@@ -6,7 +6,6 @@ const QueuePublisher = require('./queue/publisher');
 new QueueConsumer("posts").registerAsyncCallback(processPost);
 const queuePublisher = new QueuePublisher("emails");
 
-
 async function fetchPostById(postId) {
     const result = await fetch(
         `${process.env.BACKEND_URL}/post/get/${postId}`,
@@ -30,6 +29,7 @@ async function processPost(data) {
         users.forEach(async (user) => {
             await queuePublisher.sendToQueue({
                 email: user.email,
+                userId: user.user_id,
                 content,
                 postId
             });

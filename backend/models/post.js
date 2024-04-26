@@ -4,6 +4,7 @@ class Post {
     constructor({ id, topic_id, content, scheduled_at}) {
         this.id = id;
         this.content = content;
+        // TODO: also add titile
         this.topic_id = topic_id;
         this.scheduled_at = new Date(scheduled_at);
     }
