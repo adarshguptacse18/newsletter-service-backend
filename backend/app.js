@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     res.status(200).send('Hello World');
 });
 
-app.post('/subscribe', async (req, res, next) => {
+app.post('/subscription/subscribe', async (req, res, next) => {
     try {
         const { userId, topicId } = req.body;
         const subscription = await subscriptionService.subscribe(userId, topicId);
@@ -24,6 +24,15 @@ app.post('/subscribe', async (req, res, next) => {
     }
 });
 
+app.get('/subscription/getUsersByTopicId/:topicId', async (req, res, next) => {
+    try {
+        const { topicId } = req.params;
+        const users = await subscriptionService.getUsersByTopicId(topicId);
+        res.status(200).send(users);
+    } catch (err) {
+        next(err);;
+    }
+});
 app.post('/post/schedule', async (req, res, next) => {
     try {
         const { content, topic_id, scheduled_at } = req.body;

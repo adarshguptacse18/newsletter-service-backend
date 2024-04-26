@@ -10,7 +10,7 @@ docker run --name rabbit-mq --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:3-mana
 
 docker exec -it rabbit-mq /bin/bash
 
-docker cp /home/chillhai/Downloads/rabbitmq_delayed_message_exchange-3.13.0.ez rabbit-mq:///opt/rabbitmq/plugins rabbitmq_delayed_message_exchange.ez
+docker cp /home/chillhai/Downloads/rabbitmq_delayed_message_exchange-3.13.0.ez rabbit-mq:///opt/rabbitmq/plugins/rabbitmq_delayed_message_exchange.ez
 
 rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
@@ -18,3 +18,4 @@ rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
 
 
+/home/chillhai/projects/newsletter-service-backend/rabbit-mq/rabbitmq_delayed_message_exchange.ez
