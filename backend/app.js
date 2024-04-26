@@ -10,6 +10,10 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.status(200).send('Hello World');
+});
+
 app.post('/subscribe', async (req, res, next) => {
     try {
         const { userId, topicId } = req.body;

@@ -40,3 +40,7 @@ Thumbs.db
 
 # Debugging files
 postgres.js
+
+
+# Local development files
+rabbit-mq/rabbit/

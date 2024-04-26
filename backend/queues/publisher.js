@@ -9,7 +9,7 @@ class QueuePublisher {
     }
 
     async setup() {
-        const amqpServer = "amqp://localhost";
+        const amqpServer = process.env.QUEUE_URL;
         const connection = await amqp.connect(amqpServer)
         const channel = await connection.createChannel();
         this.exchange = "my-delay-exchange";
