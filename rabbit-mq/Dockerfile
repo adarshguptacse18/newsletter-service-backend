@@ -1,0 +1,3 @@
+FROM rabbitmq:3-management
+COPY rabbitmq_delayed_message_exchange.ez /opt/rabbitmq/plugins/rabbitmq_delayed_message_exchange.ez
+RUN rabbitmq-plugins enable rabbitmq_delayed_message_exchange
