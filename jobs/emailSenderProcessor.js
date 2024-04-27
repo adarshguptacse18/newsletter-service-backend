@@ -2,7 +2,7 @@
 require('dotenv').config();
 const QueueConsumer = require('./queue/consumer');
 const QueuePublisher = require('./queue/publisher');
-const emailSender = require('./EmailSender');
+const emailSender = require('./emailSender');
 
 class EmailSenderProcessor {
     constructor(queueName) {
@@ -16,7 +16,7 @@ class EmailSenderProcessor {
         // TODO send email
         // console.log(`Sending email to ${email}`);
 
-        await emailSender.sendEmail(email, `New post ${postId}`, content);
+        await emailSender.addEmailToQueue(email, `New post ${postId}`, content);
         // console.log(`Email sent to ${email}`);
     }
 }

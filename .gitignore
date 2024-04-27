@@ -46,3 +46,4 @@ postgres.js
 rabbit-mq/rabbit/
 *.pem
 backend/tmp.js
+.vercel
