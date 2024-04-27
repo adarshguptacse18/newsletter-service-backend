@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
-var smtpPool = require('nodemailer-smtp-pool');
+const smtpPool = require('nodemailer-smtp-pool');
+
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport(smtpPool({
     host: "smtp.office365.com",
@@ -8,28 +10,18 @@ const transporter = nodemailer.createTransport(smtpPool({
         user: process.env.EMAIL_SERVICE_USERNAME,
         pass: process.env.EMAIL_SERVICE_PASSWORD
     },
-    maxConnections: 1
+    maxConnections: 2,
+    sendingRate: 1,
 }));
 
 class EmailSender {
     constructor() {
-        this.messages = [];
-        transporter.on("idle", this.handler.bind(this));
     }
-    handler() {
-        // send next message from the pending queue
-        while (transporter.isIdle() && this.messages.length) {
-            this.sendEmail(this.messages.shift());
-        }
-    }
-    async addEmailToQueue(recipient, subject, html) {
-        this.messages.push({
-            recipient, subject, html
-        });
-    }
-    async sendEmail({recipient, subject, html}) {
-        console.log(recipient);
-        await transporter.sendMail({
+
+    async sendEmail(recipient, subject, html ) {
+        console.log(`Sending email to ${recipient}`);
+
+        const result = await transporter.sendMail({
             from: 'theadarshgupta@outlook.com',
             to: recipient,
             subject,
@@ -37,5 +29,8 @@ class EmailSender {
         });
     }
 }
+const emailSender = new EmailSender()
 
-module.exports = new EmailSender();;
+emailSender.sendEmail('adarshgupta5644@gmail.com', 'Email Server Started', 'Email Server Started')
+
+module.exports = emailSender;

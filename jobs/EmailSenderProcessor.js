@@ -14,10 +14,10 @@ class EmailSenderProcessor {
         const { userId , email, content, postId } = JSON.parse(data);
         // TODO put in redis {userId, postId}
         // TODO send email
-        console.log(`Sending email to ${email}`);
+        // console.log(`Sending email to ${email}`);
 
-        await emailSender.addEmailToQueue(email, `New post ${postId}`, content);
-        console.log(`Email sent to ${email}`);
+        await emailSender.sendEmail(email, `New post ${postId}`, content);
+        // console.log(`Email sent to ${email}`);
     }
 }
 

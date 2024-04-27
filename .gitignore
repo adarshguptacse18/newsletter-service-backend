@@ -44,3 +44,5 @@ postgres.js
 
 # Local development files
 rabbit-mq/rabbit/
+*.pem
+backend/tmp.js
