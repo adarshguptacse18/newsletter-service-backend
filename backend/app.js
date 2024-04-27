@@ -1,6 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser')
-require('dotenv').config()
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config()
+}
 
 const subscriptionService = require('./services/subscriptionService');
 const postService = require('./services/postService');
@@ -11,6 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
+    console.log("System is healthy");
     res.status(200).send('Hello World');
 });
 
@@ -45,7 +49,7 @@ app.post('/post/schedule', async (req, res, next) => {
 
 app.get('/post/get/:id', async (req, res, next) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const post = await postService.findById(id);
         res.status(200).send(post);
     } catch (err) {
@@ -72,3 +76,6 @@ const PORT = process.env.PORT | 5000;
 app.listen(PORT, function () {
     console.log(`Express App running at http://127.0.0.1:${PORT}/`);
 })
+
+
+module.exports = app;

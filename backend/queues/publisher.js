@@ -5,7 +5,7 @@ const msg = { number: process.argv[2] }
 
 class QueuePublisher {
     constructor() {
-        this.setup();        
+        this.setup();
     }
 
     async setup() {
@@ -20,7 +20,6 @@ class QueuePublisher {
         await channel.bindQueue("posts", this.exchange, "posts");
 
         this.channel = channel;
-
     }
 
     async sendToQueue(msg) {
