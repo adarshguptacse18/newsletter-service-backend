@@ -17,6 +17,7 @@ CREATE TABLE "post" (
     "id"  SERIAL PRIMARY KEY,
     "topic_id" int,-- TODO add foreign key
     "user_id" int, -- TODO add foreign key
+    "title" text,
     "content" text,
     "scheduled_at" timestamp
 );
