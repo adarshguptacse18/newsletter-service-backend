@@ -23,7 +23,7 @@ class EmailSender {
     async handler() {
         // send next message from the pending queue
         while (transporter.isIdle() && this.messages.length) {
-            this.sendEmail(this.messages.shift());
+            await this.sendEmail(this.messages.shift());
         }
         setTimeout(() => {
             this.handler();
