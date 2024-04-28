@@ -3,6 +3,7 @@ require('dotenv').config();
 const QueueConsumer = require('./queue/consumer');
 const QueuePublisher = require('./queue/publisher');
 const emailSender = require('./emailSender');
+const Email = require('./models/email');
 
 class EmailSenderProcessor {
     constructor(queueName) {
@@ -11,13 +12,14 @@ class EmailSenderProcessor {
     }
 
     async sendEmail(data) {
-        const { userId , email, content, postId } = JSON.parse(data);
-        // TODO put in redis {userId, postId}
-        // TODO send email
-        // console.log(`Sending email to ${email}`);
-
-        await emailSender.addEmailToQueue(email, `New post ${postId}`, content);
-        // console.log(`Email sent to ${email}`);
+        try {
+            const { userId, email, content, postId } = JSON.parse(data);
+            const emailObject = new Email({ user_id: userId, post_id: postId });
+            await emailObject.create(); // This is for idempotency
+            await emailSender.addEmailToQueue(email, `New post ${postId}`, content);
+        } catch (err) {
+            console.error(`Error in sending mail too ${data} with error: ${err}`);
+        }
     }
 }
 
