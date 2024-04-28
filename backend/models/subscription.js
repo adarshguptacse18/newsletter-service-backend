@@ -8,7 +8,7 @@ class Subscription {
 
     async create() {
         try {
-            const statement = 'INSERT INTO subscriptions(user_id, topic_id) VALUES($1, $2)';
+            const statement = 'INSERT INTO subscription(user_id, topic_id) VALUES($1, $2)';
             const values = [this.userId, this.topicId];
             const result = await db.update(statement, values);
             if (result.rows.length > 0) {
