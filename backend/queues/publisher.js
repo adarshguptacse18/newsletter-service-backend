@@ -33,7 +33,6 @@ class QueuePublisher {
     async sendToQueue(msg) {
         const { scheduled_at } = msg;
         const differentInSeconds = new Date(scheduled_at) - Date.now();
-        console.log(differentInSeconds);
         const result = await this.channel.publish(this.exchange, "posts", Buffer.from(JSON.stringify(msg)), { headers: { "x-delay": differentInSeconds } });
         return result;
     }

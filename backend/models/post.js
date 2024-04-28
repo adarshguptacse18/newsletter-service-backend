@@ -20,7 +20,7 @@ class Post {
             const statement = 'INSERT INTO post(topic_id, title, content, scheduled_at) VALUES($1, $2, $3, $4) RETURNING *';
             const values = [this.topic_id, this.title, this.content, this.scheduled_at];
             // TODO make this transactional with queue
-            const result = await client.query(statement, values);
+            const result = await this.client.query(statement, values);
             // TODO: add this in the queue
             if (result.rows.length > 0) {
                 this.id = result.rows[0].id;
@@ -33,7 +33,7 @@ class Post {
     }
 
     async commitTransaction() {
-        this.client.query("COMMIT");
+        return this.client.query("COMMIT");
     }
 
     async rollbackTransaction() {
@@ -51,6 +51,16 @@ class Post {
             return null;
         } catch(err) {
             throw new Error(err);
+        }
+    }
+
+    toJson() {
+        return {
+            id: this.id,
+            content: this.content,
+            title: this.title,
+            topic_id: this.topic_id,
+            scheduled_at: this.scheduled_at
         }
     }
 }

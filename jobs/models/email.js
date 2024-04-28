@@ -12,7 +12,6 @@ class Email {
             const statement = 'INSERT INTO email(user_id, post_id) VALUES($1, $2)';
             const values = [this.user_id, this.post_id];
             const result = await db.update(statement, values);
-            // TODO: add this in the queue
             if (result.rows.length > 0) {
                 return result.rows[0];
             }
