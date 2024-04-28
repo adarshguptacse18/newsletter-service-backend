@@ -24,9 +24,9 @@ class Subscription {
         try {
             const statement = `
             SELECT users.id as user_id, users.email as email
-                FROM subscriptions
+                FROM subscription
                 INNER JOIN users 
-                ON subscriptions.user_id = users.id 
+                ON subscription.user_id = users.id 
                 WHERE topic_id = $1`;
             const values = [this.topicId];
             const result = await db.query(statement, values);

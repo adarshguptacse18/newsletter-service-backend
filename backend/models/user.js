@@ -13,7 +13,7 @@ class User {
             if (result.rows.length > 0) {
                 return result.rows[0];
             }
-            return null;
+            return [];
         } catch(err) {
             throw new Error(err);
         }
