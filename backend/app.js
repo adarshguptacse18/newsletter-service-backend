@@ -39,8 +39,8 @@ app.get('/subscription/getUsersByTopicId/:topicId', async (req, res, next) => {
 });
 app.post('/post/schedule', async (req, res, next) => {
     try {
-        const { content, topic_id, scheduled_at } = req.body;
-        const post = await postService.create({ content, topic_id, scheduled_at });
+        const { content, title, topic_id, scheduled_at } = req.body;
+        const post = await postService.create({ content, topic_id, scheduled_at, title });
         res.status(200).send(post);
     } catch (err) {
         next(err);;

@@ -13,10 +13,10 @@ class EmailSenderProcessor {
 
     async sendEmail(data) {
         try {
-            const { userId, email, content, postId } = JSON.parse(data);
+            const { userId, email, content, postId, title } = JSON.parse(data);
             const emailObject = new Email({ user_id: userId, post_id: postId });
             await emailObject.create(); // This is for idempotency
-            await emailSender.addEmailToQueue(email, `New post ${postId}`, content);
+            await emailSender.addEmailToQueue(email, title, content);
         } catch (err) {
             console.error(`Error in sending mail too ${data} with error: ${err}`);
         }

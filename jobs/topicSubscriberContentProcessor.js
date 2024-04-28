@@ -24,14 +24,15 @@ async function processPost(data) {
     try {
         const postId = JSON.parse(data).id;
         const post = await fetchPostById(postId);
-        const { id, topic_id, content } = post;
+        const { id, topic_id, content, title } = post;
         const users = await fetchUsersByTopic(topic_id);
         users.forEach(async (user) => {
             await queuePublisher.sendToQueue({
                 email: user.email,
                 userId: user.user_id,
                 content,
-                postId
+                postId,
+                title
             });
             console.log(`Sending post to ${user.email}`);
         });
