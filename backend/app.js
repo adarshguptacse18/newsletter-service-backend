@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 const swaggerUI = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
@@ -14,6 +15,7 @@ const userService = require('./services/userService');
 
 const app = express();
 
+app.use(morgan('tiny'));
 app.use(bodyParser.json());
 
 console.log(swaggerSpec);
