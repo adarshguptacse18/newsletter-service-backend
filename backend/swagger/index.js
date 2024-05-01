@@ -18,6 +18,9 @@ const options = {
             {
                 url: "http://localhost:5000",
             },
+            {
+                url: "http://ec2-54-206-23-94.ap-southeast-2.compute.amazonaws.com:5001"
+            }
         ],
     },
     apis: ["*.js"],
